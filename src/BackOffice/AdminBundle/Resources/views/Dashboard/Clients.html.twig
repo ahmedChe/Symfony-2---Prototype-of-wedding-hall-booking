@@ -1,0 +1,21 @@
+{% extends 'BackOfficeAdminBundle:Template:layout.html.twig' %}
+{% block panelHead %}
+    Liste des clients
+{% endblock %}
+{% block panelContent %}
+    <table class="table">
+    <thead>
+   <tr style="font-weight: bold"><td>Carte d'identité</td><td>Nom & Prénom du client(e)</td><td>Telephone</td><td style="padding-left: 50px;">Email</td><td>Nom du compte</td></tr>
+        </thead>
+        <tbody>
+        {% for client in clients %}
+        <tr><td style="padding-left: 30px;">{{ client.cin }}</td>
+        <td style="padding-left: 45px;">{{ client.nomprenom }}</td>
+        <td style="padding-left: 15px;">{{ client.tel }}</td>
+        <td>{{ client.email }}</td>
+        <td style="padding-left: 30px;">{{ client.login }}</td>
+        </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+{% endblock %}

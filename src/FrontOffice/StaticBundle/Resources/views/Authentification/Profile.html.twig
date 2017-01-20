@@ -1,0 +1,113 @@
+{% extends '::base.html.twig' %}
+
+{% block body %}
+    <div class="container" style="padding-top: 10px;">
+
+        <div class="heading wow fadeInUp animated" data-wow-duration="1000ms" data-wow-delay="300ms">
+            <div class="row" style="margin-top: 30px;">
+                <div class="text-center col-sm-8 col-sm-offset-2">
+                    <h2>Profile</h2>
+                </div>
+            </div>
+        </div>
+        <div class="row" style="margin-top: -50px;">
+            <!-- left column -->
+            <form class="form-horizontal" role="form" enctype="multipart/form-data" method="post"
+                  action="{{ path('edit_profile') }}">
+                <div class="col-md-4 col-sm-6 col-xs-12" style="padding-top: 20px;">
+                    <div class="text-center">
+                        <img src="{{ asset('uploads/' ~profile.photo) }}"
+                             style="height: 210px;width: 210px; margin-left: -70px;"
+                             class="avatar img-circle img-thumbnail" alt="avatar">
+                        <h4 style="margin-left:-60px; ">Changer Votre photo de profil...</h4>
+                        <input type="file" class="text-center center-block well well-sm" name="image">
+                    </div>
+                </div>
+
+                <div class="col-md-8 col-sm-6 col-xs-12 personal-info">
+                    {% if app.session.flashBag.has('Echec') %}
+                        <div class="alert alert-danger">
+                            <a class="panel-close close" data-dismiss="alert">×</a>
+                            <i class="fa fa-warning" style="float: left"></i>
+                            {% for msg in app.session.flashBag.get('Echec') %}
+                                <div style="padding-left:300px;font-weight: bold;">{{ msg }}</div>
+                            {% endfor %}
+                        </div>
+                    {% endif %}
+                    {% if app.session.flashBag.has('Success') %}
+                        <div class="alert alert-success">
+                            <a class="panel-close close" data-dismiss="alert">×</a>
+                            <i class="fa fa-warning" style="float: left"></i>
+                            {% for msg in app.session.flashBag.get('Success') %}
+                                <div style="padding-left: 300px;font-weight: bold;">{{ msg }}</div>
+                            {% endfor %}
+                        </div>
+                    {% endif %}
+                    <h3 ></h3>
+                    <div class="panel panel-default">
+                        <div class="panel-heading" style="margin-bottom: 30px;background-color: rgb(204, 42, 108);">
+                            <h3 class="panel-title" style="font-weight: bold;color: whitesmoke">Information Personel</h3>
+                        </div>
+                        <div class="panel-body">
+                    <div class="form-group" style="padding-left: 100px;width: 700px;">
+                        <label class="col-lg-3 control-label" style="padding-left:0px;width:200px">Carte d'identité Nationale:</label>
+                        <div class="col-lg-8">
+                            <input class="form-control" value="{{ profile.cin }}" type="text" readonly="readonly">
+                        </div>
+                    </div>
+                    <div class="form-group" style="padding-left: 100px;width: 700px;">
+                        <label class="col-lg-3 control-label" style="padding-left:0px;width:200px">Nom & Prenom:</label>
+                        <div class="col-lg-8">
+                            <input class="form-control" value="{{ profile.nomprenom }}" type="text" readonly="readonly">
+                        </div>
+                    </div>
+
+
+                    <div class="form-group" style="padding-left: 100px;width: 700px;">
+                        <label class="col-lg-3 control-label" style="padding-left:0px;width:200px">Télephone:</label>
+                        <div class="col-lg-8">
+                            <input class="form-control" value="{{ profile.tel }}" type="text" pattern="[0-9]{8}" oninvalid="setCustomValidity('Le numéro doit contenir 8 chiffres')" name="tel">
+                        </div>
+                    </div>
+                    <div class="form-group" style="padding-left: 100px;width: 700px;">
+                        <label class="col-lg-3 control-label" style="padding-left:0px;width:200px">Email:</label>
+                        <div class="col-lg-8">
+                            <input class="form-control" value="{{ profile.email }}" type="email" pattern="[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[a-zA-Z]{2,4}" oninvalid="setCustomValidity('Votre mail doit respecter la forme : qqchose@domaine.xx')" name="email">
+                        </div>
+                    </div>
+                    <div class="form-group" style="padding-left: 100px;width: 700px;">
+                        <label class="col-md-3 control-label" style="padding-left:0px;width:200px">Nom d'utilisateur:</label>
+                        <div class="col-md-8">
+                            <input class="form-control" value="{{ profile.login }}" type="text" pattern=".{8,}" oninvalid="setCustomValidity('Votre pseudo doit contenir 8 caractéres au minimum')" name="username">
+                        </div>
+                    </div>
+                    <div class="form-group" style="padding-left: 100px;width: 700px;">
+                        <label class="col-md-3 control-label" style="padding-left:0px;width:200px">Mot de passe:</label>
+                        <div class="col-md-8">
+                            <input class="form-control" value="{{ profile.password }}" type="password" pattern=".{8,15}" oninvalid="setCustomValidity('Votre mot de passe doit contenir entre 8 et 15 caractéres')" name="pass">
+                        </div>
+                    </div>
+                    <div class="form-group" style="padding-left: 100px;width: 700px;">
+                        <label class="col-md-3 control-label" style="padding-left:0px;width:200px">Confirmation:</label>
+                        <div class="col-md-8">
+                            <input class="form-control" value="{{ profile.password }}" type="password" pattern=".{8,15}" oninvalid="setCustomValidity('Votre mot de passe doit contenir entre 8 et 15 caractéres')" name="repass">
+                        </div>
+                    </div>
+                    <div class="form-group" style="padding-left: 100px;width: 700px;">
+                        <label class="col-md-3 control-label"></label>
+                        <div class="col-md-8">
+                            <input class="btn btn-primary" value="Save Changes"
+                                   style="background-color: #D7457A;margin-top: 10px;;margin-bottom: 15px;" type="submit">
+                            <span></span>
+                            <input class="btn btn-default" value="Cancel"
+                                   style="background-color: #D7457A;margin-top: 10px;margin-bottom: 15px;" type="reset">
+                        </div>
+                    </div>
+                        </div>
+                    </div>
+                </div>
+            </form>
+
+        </div>
+    </div>
+{% endblock %}

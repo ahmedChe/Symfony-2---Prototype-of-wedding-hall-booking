@@ -1,0 +1,23 @@
+security:
+    encoders:
+        Symfony\Component\Security\Core\User\User: plaintext
+    providers:
+        in_memory:
+            memory:
+                users:
+                    admin: {password: brigade, roles: ROLE_ADMIN}
+
+    firewalls:
+        back:
+            pattern: ^/admin
+            anonymous: ~
+            http_basic:
+                realm: "Please login"
+        secured_area:
+            pattern: ^/
+            anonymous: ~
+        default:
+            anonymous: ~
+
+    access_control:
+         - { path: ^/admin/, role: ROLE_ADMIN }

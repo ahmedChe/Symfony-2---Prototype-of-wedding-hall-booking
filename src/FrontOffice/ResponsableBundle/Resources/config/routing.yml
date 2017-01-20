@@ -1,0 +1,50 @@
+front_office_masalle:
+    path:     /MaSalle
+    defaults: { _controller: FrontOfficeResponsableBundle:MaSalle:Masalle}
+post_service:
+    path:     /Services
+    defaults: { _controller: FrontOfficeResponsableBundle:MaSalle:AddService}
+    methods:  ['POST']
+remove_service:
+    path:     /Services-suppression
+    defaults: { _controller: FrontOfficeResponsableBundle:MaSalle:RemoveService}
+    methods:  ['POST']
+remove_service:
+    path:     /Services-suppression
+    defaults: { _controller: FrontOfficeResponsableBundle:MaSalle:RemoveService}
+    methods:  ['POST']
+edit_service:
+    path:     /Services-edit
+    defaults: { _controller: FrontOfficeResponsableBundle:MaSalle:EditService}
+    methods:  ['POST']
+add_proposition:
+    path:     /add-propositions
+    defaults: { _controller: FrontOfficeResponsableBundle:Proposition:add}
+    methods:  ['POST']
+propositions:
+    path:     /propositions
+    defaults: { _controller: FrontOfficeResponsableBundle:Proposition:Display}
+    methods:  ['POST']
+ajout_saison:
+    path:     /saisons
+    defaults: { _controller: FrontOfficeResponsableBundle:Saison:Ajout}
+    methods:  ['POST']
+delete_saison:
+    path:     /saisons/delete
+    defaults: { _controller: FrontOfficeResponsableBundle:Saison:Delete}
+    methods:  ['POST']
+propositions-modifiy:
+    path:     /propositions/modify
+    defaults: { _controller: FrontOfficeResponsableBundle:Proposition:Modify}
+    methods:  ['POST']
+remove_prop:
+    path:     /propositions/remove
+    defaults: { _controller: FrontOfficeResponsableBundle:Proposition:Remove}
+    methods:  ['POST']
+retrieve_reservation:
+    path:     /Reservations
+    defaults: { _controller: FrontOfficeResponsableBundle:Reservation:RetrieveReservation}
+reservation_respond:
+    path:     /Reservation/respond
+    defaults: { _controller: FrontOfficeResponsableBundle:Reservation:Respond}
+    methods:  ['POST']

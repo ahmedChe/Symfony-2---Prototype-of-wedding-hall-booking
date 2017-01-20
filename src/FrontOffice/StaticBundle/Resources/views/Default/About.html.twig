@@ -1,0 +1,29 @@
+{% extends '::base.html.twig' %}
+{% block body %}
+    <section id="aboutUs">
+    <div class="container">
+        <div class="heading wow fadeInUp animated" data-wow-duration="1000ms" data-wow-delay="300ms">
+            <div class="row">
+                <div class="text-center col-sm-8 col-sm-offset-2">
+                    <h2>A Propos</h2>
+                    <h4>Nous somme une société Tunisienne de cordination des mariages</h4>
+                </div>
+            </div>
+        </div>
+        <div class="row feature design">
+            <div class="col-md-8" style="padding-right: 70px;text-align: justify;text-justify: inter-word;">
+                <h3 style="margin-bottom: 45px;">Nos Charges</h3>
+                <h4 style="margin-bottom:35px;">Le coordinateur a tout prévu pour que vous gardiez l’esprit serein de la réservation jusqu’au jour</h4>
+                <h4 style="margin-bottom:35px;"> Un chef de projet se chargera de l'organisation et la cordinnation entre les salles qui offrent ces services et les clients en question</h4>
+                <h4 style="margin-bottom:35px;"> Un controlleur supervise le déroulement de l'événnement a fin d'assurer la qualité de ses partenaires</h4>
+                <h4 style="margin-bottom:35px;">Tous les partenaires sont evalués en permenance et la seule condition du prolongement de contract est la satisfaction de la clientéle</h4>
+            </div>
+
+            <div class="col-md-4">
+                <img src="{{ asset('images/coordinateur.jpg') }}" alt="" width="100%">
+            </div>
+        </div>
+
+    </div>
+    </section>
+{% endblock %}

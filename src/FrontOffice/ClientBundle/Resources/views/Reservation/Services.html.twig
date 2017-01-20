@@ -1,0 +1,64 @@
+<div class="col-md-12" style="padding-left:0px;padding-right:0px;">
+    <div class="panel panel-default" style="background-color:#f9d6f4;margin-bottom:0px;">
+        <div class="panel-heading" style="background-color:rgb(204, 42, 108);">
+            <h3 class="panel-title" style="font-weight: bold;color: white">
+                <div style="float: left;margin-right: 10px;">Services</div>
+                <div class="btn2"><i class="fa fa-sort-asc" style="color: white;line-height: 35px;"></i></div>
+            </h3>
+        </div>
+        <div class="panel-body">
+            <dl>
+
+                    {% for service in services %}
+
+                        <div class="checkbox">
+                            <h3 style="color:rgb(204, 42, 108);padding-left: 10px; ">{{ service.libelleService }}</h3>
+                            <hr style="margin-top: 0px;color: red"/>
+                            {{ render(controller('FrontOfficeClientBundle:Reservation:Proposition', {
+                                'id': service.idService  })) }}
+                        </div>
+                    {% endfor %}
+                    <div class="panel panel-default"
+                         style="background-color:#f3c6d8;margin-bottom:0px;margin-top: 35px;">
+                        <div class="panel-heading" style="background-color:#df6496">
+                            <h3 class="panel-title" style="font-weight: bold;color: white">
+                                Reservation
+                            </h3>
+                        </div>
+                        <div class="panel-body">
+                            <div class="reserve2">
+                                <div style="width:600px;float:left;padding-left: 100px;"><label for="date"
+                                                                                                style="padding-right: 20px;">
+                                        Date de reservation : </label> <input type="date" style="text-align:center;"
+                                                                              name="date" required>
+                                </div>
+                                <div style="width: 400px;height:53px;margin-right:0px;float:right;padding-left:50px;">
+                                    <button type="submit" class="btna"
+                                            style="background-color: #df6496;margin-bottom:15px;clear:both;width:200px;">
+                                        Reserver
+                                    </button>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+
+            </dl>
+        </div>
+    </div>
+</div>
+
+<style>
+    hr {
+        padding-left: 10px;
+        display: block;
+        clear: both;
+        height: 0;
+        font-family: arial;
+        text-align: center;
+        font-size: 60px;
+        line-height: 1;
+        width: 25%;
+        size: 10px;
+    }
+</style>

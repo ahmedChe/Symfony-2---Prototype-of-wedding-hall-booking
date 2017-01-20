@@ -1,0 +1,92 @@
+<?php
+
+namespace FrontOffice\ResponsableBundle\Entity;
+
+use Doctrine\ORM\Mapping as ORM;
+
+/**
+ * Saison
+ *
+ * @ORM\Table(name="saison")
+ * @ORM\Entity
+ */
+class Saison
+{
+    /**
+     * @var integer
+     *
+     * @ORM\Id
+     * @ORM\ManyToOne (targetEntity="Salle", inversedBy="saisons", cascade={"persist", "merge"})
+     * @ORM\Column(name="id_salle",type="integer")
+     */
+    private $idSalle;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="libelle_saison", type="string", length=30, nullable=false)
+     * @ORM\Id
+     * @ORM\GeneratedValue(strategy="NONE")
+     */
+    private $libelleSaison;
+
+    /**
+     * @var float
+     *
+     * @ORM\Column(name="prix", type="float", precision=10, scale=0, nullable=false)
+     */
+    private $prix;
+
+    /**
+     * @return Salle
+     */
+    public function getIdSalle()
+    {
+        return $this->idSalle;
+    }
+
+    /**
+     * @param Salle $idSalle
+     */
+    public function setIdSalle($idSalle)
+    {
+        $this->idSalle = $idSalle;
+    }
+
+    /**
+     * @return string
+     */
+    public function getLibelleSaison()
+    {
+        return $this->libelleSaison;
+    }
+
+    /**
+     * @param string $libelleSaison
+     */
+    public function setLibelleSaison($libelleSaison)
+    {
+        $this->libelleSaison = $libelleSaison;
+    }
+
+    /**
+     * @return float
+     */
+    public function getPrix()
+    {
+        return $this->prix;
+    }
+
+    /**
+     * @param float $prix
+     */
+    public function setPrix($prix)
+    {
+        $this->prix = $prix;
+    }
+    public function __toString ()
+    {
+        Return empty($this->libelleSaison) ? "--- Session ---" : $this->libelleSaison;
+    }
+
+}

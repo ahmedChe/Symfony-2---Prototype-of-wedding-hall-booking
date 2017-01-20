@@ -1,0 +1,8 @@
+<table style="margin-top:-30px;">
+{% for proposition in propositions %}
+<tr><td style="width:580px;padding-left:25px;font-weight: bold">{{ proposition.libelleProposition }}</td><td style="width:400px;color: black">{{ proposition.prixProposition}} Dinars Tunisien</td>
+        <td>
+        <input type="checkbox" name="{{ id }}" value="{{ proposition.libelleProposition|replace({' ': '+'})}}"></td></tr>
+{% endfor %}
+
+</table>

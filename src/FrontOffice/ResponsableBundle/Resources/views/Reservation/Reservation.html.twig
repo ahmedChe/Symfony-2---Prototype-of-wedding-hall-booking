@@ -1,0 +1,269 @@
+{% extends '::base.html.twig' %}
+
+{% block body %}
+    <script>
+        $(function () {
+            // for bootstrap 3 use 'shown.bs.tab', for bootstrap 2 use 'shown' in the next line
+            $('a[data-toggle="tab"]').on('shown.bs.tab', function (e) {
+                // save the latest tab; use cookies if you like 'em better:
+                localStorage.setItem('lastTab', $(this).attr('href'));
+            });
+
+            // go to the latest tab, if it exists:
+            var lastTab = localStorage.getItem('lastTab');
+            if (lastTab) {
+                $('[href="' + lastTab + '"]').tab('show');
+            }
+        });
+    </script>
+    <script>
+        function proposition(id) {
+            $('#form_propositions_libelleProposition').empty();
+            $('#form_propositions_libelleProposition').append("<option>Loading...</option>");
+            $.ajax({
+                type: "POST",
+                url: "{{ path('propositions') }}",
+                data: {'id': id},
+                success: function (msg) {
+                    $('#form_propositions_libelleProposition').empty();
+                    if (msg != '') {
+                        $('#form_propositions_libelleProposition').html(msg);
+                    }
+                    else {
+                        $('#form_propositions_libelleProposition').html('<em>Pas de proposition</em>');
+                    }
+                },
+                complete: function () {
+                }
+            });
+        }
+        function proposition2(id) {
+            $('#form_propositions_delete_libelleProposition').empty();
+            $('#form_propositions_delete_libelleProposition').append("<option>Loading...</option>");
+            $.ajax({
+                type: "POST",
+                url: "{{ path('propositions') }}",
+                data: {'id': id},
+                success: function (msg) {
+                    $('#form_propositions_delete_libelleProposition').empty();
+                    if (msg != '') {
+                        $('#form_propositions_delete_libelleProposition').html(msg);
+                    }
+                    else {
+                        $('#form_propositions_delete_libelleProposition').html('<em>Pas de proposition</em>');
+                    }
+                },
+                complete: function () {
+                }
+            });
+        }
+        $(document).ready(function () {
+            $('#form_propositions_service').change(function () {
+                var id = $('#form_propositions_service').val();
+                proposition(id);
+            });
+            $('#form_propositions_delete_service').change(function () {
+                var id = $('#form_propositions_delete_service').val();
+                proposition2(id);
+            });
+        });
+    </script>
+    <style>
+        .serviceR {
+            margin-top: -7px;
+        }
+
+        .serviceM {
+            height: 80px;
+        }
+
+        .boutton.f {
+            margin-top: -30px;
+
+        }
+
+        .serviceR button {
+            float: right;
+            margin-right: 10px;
+            margin-top: 5px;
+        }
+
+        .serviceR label {
+            margin-top: 15px;
+            padding-left: 15px;
+            padding-right: 15px;
+        }
+
+        .serviceR select {
+            height: 35px;
+            margin-left: 15px;
+            width: 250px;
+        }
+
+        .serviceR .sizek {
+            width: 180px;
+            margin-right: 31px;
+            margin-left: 15px;
+        }
+
+        .service {
+            padding-top: 25px;
+            padding-right: 0px;
+            margin-left: 0px;
+            padding-left: 70px;
+        }
+
+        .serviceR .size {
+            width: 180px;
+            margin-right: 31px;
+            margin-left: 25px;
+        }
+
+        .service label {
+            width: 200px;
+
+            text-align: left;
+        }
+
+        input {
+            padding-left: 0px;
+        }
+
+        .service input, .service select {
+            width: 150px;
+            height: 35px;
+        }
+
+        .boutton.sp {
+            padding-right: 20px;
+        }
+
+        .boutton {
+            width: 100px;
+            height: 50px;
+            margin: 0;
+            padding: 0 20px;
+            vertical-align: middle;
+            background: #de615e;
+            border: 0;
+            font-family: 'Roboto', sans-serif;
+            font-size: 16px;
+            font-weight: 300;
+            line-height: 50px;
+            color: #fff;
+            -moz-border-radius: 4px;
+            -webkit-border-radius: 4px;
+            border-radius: 4px;
+            text-shadow: none;
+            -moz-box-shadow: none;
+            -webkit-box-shadow: none;
+            box-shadow: none;
+            -o-transition: all .3s;
+            -moz-transition: all .3s;
+            -webkit-transition: all .3s;
+            -ms-transition: all .3s;
+            transition: all .3s;
+        }
+
+        .service .boutton.pull-left {
+            margin-left: 40px;
+        }
+
+        .service .boutton.pull-right {
+            margin-right: 170px;
+        }
+    </style>
+    <link rel="stylesheet" href="{{ asset('bundles/frontofficestatic/css/font-awesome.min.css') }}">
+    <link rel="stylesheet" href="{{ asset('bundles/frontofficestatic/css/form-elements.css') }}">
+    <link rel="stylesheet" href="{{ asset('bundles/frontofficestatic/css/style.css') }}">
+    <link rel="stylesheet" href="{{ asset('bundles/frontofficestatic/css/StepStyle.css') }}">
+    <link rel="stylesheet" href="{{ asset('bundles/frontofficeresponsable/css/service_style.css') }}">
+    <link rel="shortcut icon" href="{{ asset('bundles/frontofficestatic/ico/favicon.png') }}">
+    <link rel="apple-touch-icon-precomposed" sizes="144x144"
+          href="{{ asset('bundles/frontofficestatic/ico/apple-touch-icon-144-precomposed.png') }}">
+    <link rel="apple-touch-icon-precomposed" sizes="114x114"
+          href="{{ asset('bundles/frontofficestatic/ico/apple-touch-icon-114-precomposed.png') }}">
+    <link rel="apple-touch-icon-precomposed" sizes="72x72"
+          href="{{ asset('bundles/frontofficestatic/ico/apple-touch-icon-72-precomposed.png') }}">
+    <link rel="apple-touch-icon-precomposed"
+          href="{{ asset('bundles/frontofficestatic/ico/apple-touch-icon-57-precomposed.png') }}">
+    <script src="{{ asset('bundles/frontofficestatic/js/Steps.js') }}" type="text/javascript"></script>
+    <link rel="stylesheet" type="text/css" href="{{ asset('css/glDatePicker.default.css') }}">
+    <script src="{{ asset('Calender/glDatePicker.js') }}" type="text/javascript"></script>
+    <script src="{{ asset('Calender/glDatePicker.min.js') }}" type="text/javascript"></script>
+    <link rel="stylesheet" href="{{ asset('bundles/adesignscalendar/css/fullcalendar/fullcalendar.css') }}"/>
+    <script type="text/javascript" src="{{ asset('bundles/adesignscalendar/js/jquery/jquery-1.8.2.min.js') }}"></script>
+    <script type="text/javascript"
+            src="{{ asset('bundles/adesignscalendar/js/fullcalendar/jquery.fullcalendar.min.js') }}"></script>
+    <script type="text/javascript" src="{{ asset('bundles/adesignscalendar/js/calendar-settings.js') }}"></script>
+    <section id="Connexion" style="height: 50px;">
+        <div class="container">
+            <div class="heading wow fadeInUp animated" data-wow-duration="1000ms" data-wow-delay="300ms">
+                <div class="row" style="margin-top: 40px;">
+                    <div class="text-center col-sm-8 col-sm-offset-2">
+                        <h2 style="padding-left: 80px;">Reservation</h2>
+
+                    </div>
+                </div>
+            </div>
+            <div class="top-content">
+                <div class="inner-bg">
+                    <div class="container">
+                        <div class="row" style="margin-top: -120px;">
+                            <div class="col-sm-12" style="background-color:#F8E0F7;padding:0px;margin-top: 5px;">
+
+
+                                {% include 'ADesignsCalendarBundle::calendar.html.twig' %}
+
+
+                                <div class="list-group" style="font-weight: bold;">
+                                    <a class="list-group-item active" style="background-color: rgb(204, 42, 108);">Liste
+                                        de Reservation</a>
+                                    {% if  reservations|length <1 %}
+                                    <center> Pas d'invitation pour le moment..veuillez retourner plus tard..</center>
+                                    {% else %}
+                                    {% for reservation in reservations %}
+                                    <div class="list-group-item"
+                                         style="height:100px;font-weight:bold;line-height: 70px;">
+                                        <div style="margin-left:30px;float: left">
+                                            {{ reservation.dateReservation|date("d-m-Y") }}
+                                        </div>
+                                        <div style="width:300px;margin-left:170px;float:left;">
+                                            {{ reservation.client.nomPrenom }}
+
+                                        </div>
+                                        <div style="width:100px;float:left;margin-left:50px;">
+                                            {{ reservation.prix }}
+                                        </div>
+                                        <div style="margin-left:50px;padding-left:0px;float:right;margin-top:0px;margin-right:30px;">
+                                            <form name="form" method="post"
+                                                  action="{{ path('reservation_respond') }}">
+
+                                                <input type="submit" name="action" value="confirmer"
+                                                       class="btn btn-info btn-lg" hidden=hidden
+                                                       style="background-color: rgb(204, 42, 108)">
+                                                <input type="submit" class="btn btn-info btn-lg" name="action"
+                                                       value="refuser" style="background-color: rgb(204, 42, 108)">
+                                                <input type="hidden" name="id" value="{{ reservation.id }}>
+                                                </form>
+                                            </div>
+
+                                        </div>
+                                    {% endfor %}
+                                    {% endif %}
+                                </div>
+
+                            </div>
+
+                        </div>
+
+
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </section>
+
+
+{% endblock %}

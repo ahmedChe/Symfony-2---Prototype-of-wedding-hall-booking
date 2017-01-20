@@ -1,0 +1,52 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <h1>Salle</h1>
+
+    <table>
+        <tbody>
+            <tr>
+                <th>Idsalle</th>
+                <td>{{ salle.idSalle }}</td>
+            </tr>
+            <tr>
+                <th>Nomsalle</th>
+                <td>{{ salle.nomSalle }}</td>
+            </tr>
+            <tr>
+                <th>Adressesalle</th>
+                <td>{{ salle.adresseSalle }}</td>
+            </tr>
+            <tr>
+                <th>Typesalle</th>
+                <td>{{ salle.typeSalle }}</td>
+            </tr>
+            <tr>
+                <th>Surfacesalle</th>
+                <td>{{ salle.surfaceSalle }}</td>
+            </tr>
+            <tr>
+                <th>Capacitesalle</th>
+                <td>{{ salle.capaciteSalle }}</td>
+            </tr>
+            <tr>
+                <th>Photo</th>
+                <td>{{ salle.photo }}</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <ul>
+        <li>
+            <a href="{{ path('salle_index') }}">Back to the list</a>
+        </li>
+        <li>
+            <a href="{{ path('salle_edit', { 'id': salle.idSalle }) }}">Edit</a>
+        </li>
+        <li>
+            {{ form_start(delete_form) }}
+                <input type="submit" value="Delete">
+            {{ form_end(delete_form) }}
+        </li>
+    </ul>
+{% endblock %}

@@ -1,0 +1,151 @@
+{% extends '::base.html.twig' %}
+
+{% block body %}
+    <style>
+        dd {
+            float: right;
+            margin-right: 15px;
+        }
+
+        dt {
+            float: left;
+            clear: right;
+        }
+    </style>
+    <link rel="stylesheet" href="{{ asset('bundles/frontofficestatic/css/font-awesome.min.css') }}">
+    <link rel="stylesheet" href="{{ asset('bundles/frontofficestatic/css/form-elements.css') }}">
+    <link rel="stylesheet" href="{{ asset('bundles/frontofficestatic/css/style.css') }}">
+    <link rel="shortcut icon" href="{{ asset('bundles/frontofficestatic/ico/favicon.png') }}">
+    <div class="container" style="padding-top: 10px;">
+
+        <div class="heading wow fadeInUp animated" data-wow-duration="1000ms" data-wow-delay="300ms">
+            <div class="row" style="margin-top: 30px;">
+                <div class="text-center col-sm-8 col-sm-offset-2">
+                    <h2>Salles</h2>
+                </div>
+            </div>
+        </div>
+        <div class="row" style="margin-top: -50px;">
+            <!-- left column -->
+            <div class="col-sm-12" style="background-color: #F06397;padding: 0px;">
+                <div class="form-top" style="width: 100%;margin-top: 25px;opacity: 0.7">
+                    <h3 style="color: white">Salles disponibles</h3>
+                </div>
+                <div class="form-bottom">
+                    {% for salle in salles %}
+                        <div class="jumbotron" style="background-color: #f6ccdc;padding: 0px">
+                            <div class="row">
+                                <div class="col-md-6" style="padding-right: 0px;">
+                                    <div class="panel panel-default" style="background-color:#f9d6f4;margin-bottom:0px;">
+                                    <img src="{{ asset('uploads/' ~salle.photo) }}" style="height: 330px;width: 580px;">
+                               </div>
+                                </div>
+                                <div class="col-md-6" style="padding-left:0px;">
+                                    <div class="panel panel-default" style="background-color:#f9d6f4;margin-bottom:0px;height: 330px; ">
+                                        <div class="panel-heading" style="background-color:rgb(204, 42, 108);">
+                                            <h3 class="panel-title" style="font-weight: bold;color: white">
+                                                Informations de la salle
+                                                <div style="float: right">
+                                                    <div style="float: left;margin-right: 10px;">
+                                                        <div class="btn1"><i class="fa fa-sort-desc"  style="color: white;line-height: 0px;"></i></div>
+                                                    </div>
+
+                                                    Services
+                                                </div>
+                                            </h3>
+                                        </div>
+                                        <div class="panel-body">
+                                            <dl>
+                                                <dt>
+                                                    Nom de la salle
+                                                </dt>
+                                                <dd>
+                                                    {{ salle.nomSalle }}
+                                                </dd>
+                                                <dt>
+                                                    Adresse
+                                                </dt>
+                                                <dd>
+                                                    {{ salle.adresseSalle }}
+                                                </dd>
+                                                <dt>
+                                                    Type de Salle
+                                                </dt>
+                                                <dd>
+                                                    {{ salle.typeSalle }}
+                                                </dd>
+
+                                                <dt>
+                                                    Surface
+                                                </dt>
+                                                <dd>
+                                                    {{ salle.surfaceSalle }} m²
+                                                </dd>
+                                                <dt>
+                                                    Capacite
+                                                </dt>
+                                                <dd>
+                                                    {{ salle.capaciteSalle }} Personnes
+                                                </dd>
+                                                <dt>
+                                                    Prix
+                                                </dt>
+                                                <dd>
+                                                    {{ salle.prix }} Dinars Tunisien
+                                                </dd>
+                                                <dd>
+                                                    <div class="reserve1"><button type="submit" class="btn" style="background-color: #D7457A;margin-top:20px;margin-bottom:15px;clear:both;float:right;margin-left:300px;">Reserver</button></div>
+
+                                                </dd>
+                                            </dl>
+
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+
+                            <div class="services">
+                                <form action="{{ path('reservation') }}" method="post">
+                                {{ render(controller('FrontOfficeClientBundle:Reservation:Service', {
+                                    'id': salle.idSalle  })) }}
+                                    <input type="hidden" name="prixSalle" value="{{ salle.prix }}">
+                                    <input type="hidden" name="idSalle" value="{{ salle.idSalle }}">
+                                    </form>
+                            </div>
+                        </div>
+                    {% endfor %}
+                </div>
+            </div>
+
+        </div>
+    </div>
+    <script>
+        $(document).ready(function(){
+            $(".services").slideUp();
+            $(".btn2").hide();
+            $(".btn2").click(function(){
+                var id = $(".btn2").index( this );
+                $(".services:eq("+id+")").slideUp();
+                $(".btn2").hide();
+                $(".btn1").show();
+                $(".reserve1:eq("+id+")").show();
+            });
+            $(".btn1").click(function(){
+                var id = $(".btn1").index( this );
+                $(".services:eq("+id+")").slideDown();
+                $(".btn1").hide();
+                $(".btn2").show();
+                $(".reserve1:eq("+id+")").hide();
+            });
+            $(".btn").click(function(){
+                var id = $(".btn").index( this );
+                $(".services:eq("+id+")").slideDown();
+                $(".btn1").hide();
+                $(".btn2").show();
+                $(".reserve1:eq("+id+")").hide();
+            });
+
+        });
+    </script>
+{% endblock %}

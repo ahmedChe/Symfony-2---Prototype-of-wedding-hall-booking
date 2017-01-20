@@ -1,0 +1,27 @@
+back_office_admin:
+    resource: "@BackOfficeAdminBundle/Resources/config/routing.yml"
+    prefix:   /
+
+front_office_client:
+    resource: "@FrontOfficeClientBundle/Resources/config/routing.yml"
+    prefix:   /
+
+front_office_responsable:
+    resource: "@FrontOfficeResponsableBundle/Resources/config/routing.yml"
+    prefix:   /
+
+front_office_static:
+    resource: "@FrontOfficeStaticBundle/Resources/config/routing.yml"
+    prefix:   /
+front_office_Responsable:
+    resource: "@FrontOfficeResponsableBundle/Resources/config/routing.yml"
+    prefix:   /
+app:
+    resource: "@AppBundle/Controller/"
+    type:     annotation
+
+adesigns_calendar:
+  resource: "@ADesignsCalendarBundle/Resources/config/routing.xml"
+
+fos_js_routing:
+    resource: "@FOSJsRoutingBundle/Resources/config/routing/routing.xml"

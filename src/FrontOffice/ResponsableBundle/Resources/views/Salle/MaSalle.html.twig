@@ -1,0 +1,617 @@
+{% extends '::base.html.twig' %}
+
+{% block body %}
+    <script>
+        $(function () {
+            // for bootstrap 3 use 'shown.bs.tab', for bootstrap 2 use 'shown' in the next line
+            $('a[data-toggle="tab"]').on('shown.bs.tab', function (e) {
+                // save the latest tab; use cookies if you like 'em better:
+                localStorage.setItem('lastTab', $(this).attr('href'));
+            });
+
+            // go to the latest tab, if it exists:
+            var lastTab = localStorage.getItem('lastTab');
+            if (lastTab) {
+                $('[href="' + lastTab + '"]').tab('show');
+            }
+        });
+    </script>
+    <script>
+        function proposition(id) {
+            $('#form_propositions_libelleProposition').empty();
+            $('#form_propositions_libelleProposition').append("<option>Loading...</option>");
+            $.ajax({
+                type: "POST",
+                url: "{{ path('propositions') }}",
+                data: {'id': id},
+                success: function (msg) {
+                    $('#form_propositions_libelleProposition').empty();
+                    if (msg != '') {
+                        $('#form_propositions_libelleProposition').html(msg);
+                    }
+                    else {
+                        $('#form_propositions_libelleProposition').html('<em>Pas de proposition</em>');
+                    }
+                },
+                complete: function () {
+                }
+            });
+        }
+        function proposition2(id) {
+            $('#form_propositions_delete_libelleProposition').empty();
+            $('#form_propositions_delete_libelleProposition').append("<option>Loading...</option>");
+            $.ajax({
+                type: "POST",
+                url: "{{ path('propositions') }}",
+                data: {'id': id},
+                success: function (msg) {
+                    $('#form_propositions_delete_libelleProposition').empty();
+                    if (msg != '') {
+                        $('#form_propositions_delete_libelleProposition').html(msg);
+                    }
+                    else {
+                        $('#form_propositions_delete_libelleProposition').html('<em>Pas de proposition</em>');
+                    }
+                },
+                complete: function () {
+                }
+            });
+        }
+        $(document).ready(function () {
+            $('#form_propositions_service').change(function () {
+                var id = $('#form_propositions_service').val();
+                proposition(id);
+            });
+            $('#form_propositions_delete_service').change(function () {
+                var id = $('#form_propositions_delete_service').val();
+                proposition2(id);
+            });
+        });
+    </script>
+    <style>
+        .serviceR {
+            margin-top: -7px;
+        }
+
+        .serviceM {
+            height: 80px;
+        }
+
+        .boutton.f {
+            margin-top: -30px;
+
+        }
+
+        .serviceR button {
+            float: right;
+            margin-right: 10px;
+            margin-top: 5px;
+        }
+
+        .serviceR label {
+            margin-top: 15px;
+            padding-left: 15px;
+            padding-right: 15px;
+        }
+
+        .serviceR select {
+            height: 35px;
+            margin-left: 15px;
+            width: 250px;
+        }
+
+        .serviceR .sizek {
+            width: 180px;
+            margin-right: 31px;
+            margin-left: 15px;
+        }
+
+        .service {
+            padding-top: 25px;
+            padding-right: 0px;
+            margin-left: 0px;
+            padding-left: 70px;
+        }
+
+        .serviceR .size {
+            width: 180px;
+            margin-right: 31px;
+            margin-left: 25px;
+        }
+
+        .service label {
+            width: 200px;
+
+            text-align: left;
+        }
+
+        input {
+            padding-left: 0px;
+        }
+
+        .service input, .service select {
+            width: 150px;
+            height: 35px;
+        }
+
+        .boutton.sp {
+            padding-right: 20px;
+        }
+
+        .boutton {
+            width: 100px;
+            height: 50px;
+            margin: 0;
+            padding: 0 20px;
+            vertical-align: middle;
+            background: #de615e;
+            border: 0;
+            font-family: 'Roboto', sans-serif;
+            font-size: 16px;
+            font-weight: 300;
+            line-height: 50px;
+            color: #fff;
+            -moz-border-radius: 4px;
+            -webkit-border-radius: 4px;
+            border-radius: 4px;
+            text-shadow: none;
+            -moz-box-shadow: none;
+            -webkit-box-shadow: none;
+            box-shadow: none;
+            -o-transition: all .3s;
+            -moz-transition: all .3s;
+            -webkit-transition: all .3s;
+            -ms-transition: all .3s;
+            transition: all .3s;
+        }
+
+        .service .boutton.pull-left {
+            margin-left: 40px;
+        }
+
+        .service .boutton.pull-right {
+            margin-right: 170px;
+        }
+    </style>
+    <link rel="stylesheet" href="{{ asset('bundles/frontofficestatic/css/font-awesome.min.css') }}">
+    <link rel="stylesheet" href="{{ asset('bundles/frontofficestatic/css/form-elements.css') }}">
+    <link rel="stylesheet" href="{{ asset('bundles/frontofficestatic/css/style.css') }}">
+    <link rel="stylesheet" href="{{ asset('bundles/frontofficestatic/css/StepStyle.css') }}">
+    <link rel="stylesheet" href="{{ asset('bundles/frontofficeresponsable/css/service_style.css') }}">
+    <link rel="shortcut icon" href="{{ asset('bundles/frontofficestatic/ico/favicon.png') }}">
+    <link rel="apple-touch-icon-precomposed" sizes="144x144"
+          href="{{ asset('bundles/frontofficestatic/ico/apple-touch-icon-144-precomposed.png') }}">
+    <link rel="apple-touch-icon-precomposed" sizes="114x114"
+          href="{{ asset('bundles/frontofficestatic/ico/apple-touch-icon-114-precomposed.png') }}">
+    <link rel="apple-touch-icon-precomposed" sizes="72x72"
+          href="{{ asset('bundles/frontofficestatic/ico/apple-touch-icon-72-precomposed.png') }}">
+    <link rel="apple-touch-icon-precomposed"
+          href="{{ asset('bundles/frontofficestatic/ico/apple-touch-icon-57-precomposed.png') }}">
+    <script src="{{ asset('bundles/frontofficestatic/js/Steps.js') }}" type="text/javascript"></script>
+    <section id="Connexion" style="height: 50px;">
+
+        <div class="container">
+            <div class="heading wow fadeInUp animated" data-wow-duration="1000ms" data-wow-delay="300ms">
+                <div class="row" style="margin-top: 30px;">
+                    <div class="text-center col-sm-8 col-sm-offset-2">
+                        <h2 style="padding-left: 80px;">Ma salle</h2>
+
+                    </div>
+                </div>
+            </div>
+
+            <link rel="stylesheet"
+                  href="{{ asset('//cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/2.3.1/css/bootstrap-responsive.min.css') }}"
+                  class="cssdeck">
+            <div class="top-content">
+                <div class="inner-bg">
+                    <div class="container">
+                        <div class="row" style="margin-top: -120px;">
+                            <div class="col-sm-12" style="background-color: #F06397;padding: 0px;height: 550px;">
+                                <div style="border: 2px solid black;width: 50%;float: left;margin: 15px;">
+                                    <img src="{{ asset('uploads/' ~salle.photo) }}"
+                                         style="height: 397px;width: 100%; "
+
+                                         alt="avatar">
+                                </div>
+                                <div class="modal-body" style="width: 50%;margin-left:50%;padding-top: 0px;">
+
+                                    <div class="form-top">
+
+                                        <ul class="nav nav-tabs" style="font-weight: bold" id="NavTab">
+                                            <li class="active"><a href="#salle" data-toggle="tab">Salle</a></li>
+                                            <li><a href="#Price" data-toggle="tab">Prix</a></li>
+                                            <li><a href="#service" data-toggle="tab">Services</a></li>
+
+                                            <li><a href="#Propositions" data-toggle="tab">Propositions</a></li>
+
+
+                                        </ul>
+                                    </div>
+
+                                    <div id="myTabContent" class="tab-content" style="width:543px;margin-left:10px;">
+                                        <div class="tab-pane active in " id="salle"
+                                             style="background-color:#cc2a6c;height: 475px;">
+
+                                            <form name="salle" style="color: floralwhite">
+                                                <div style="padding-top: 25px;margin-left:0px;padding-left:0px;">
+                                                    <label style="width:200px;text-align:left;">Nom de la
+                                                        salle</label>
+                                                    <input maxlength="200" type="text"
+                                                           required="required" width="150px;"
+                                                           name="names" style="height:40px;"
+                                                           placeholder="Nom de la salle"
+                                                           value="{{ salle.nomSalle }}"/>
+                                                </div>
+                                                <div style="padding-top: 25px;margin-left:0px;padding-left:0px;">
+                                                    <label style="width:200px;text-align:left;">Address</label>
+                                                                        <textarea rows="8" cols="1" readonly
+                                                                                  style="height:100px;width: 240px;"
+                                                                                  required="required"
+                                                                                  name="adrs"
+                                                                                  placeholder="L'adresse de votre salle">{{ salle.adresseSalle }}
+                                                                            </textarea>
+                                                </div>
+                                                <div style="padding-top: 25px;margin-left:0px;padding-left:0px;">
+                                                    <label style="width:200px;text-align:left;">Type
+                                                        de la
+                                                        salle</label>
+                                                    <input type="text" name="surface"
+                                                           readonly
+                                                           value="{{ salle.typeSalle }}"
+                                                           required="required"
+                                                           placeholder="Surface de la salle" style="height:40px;"/>
+
+
+                                                </div>
+                                                <div style="padding-top: 25px;margin-left:0px;padding-left:0px;">
+                                                    <label style="width:200px;text-align:left;">Surface de la
+                                                        salle</label>
+                                                    <input type="text" name="surface"
+                                                           pattern="[0-9]+\.[0-9]+"
+                                                           value="{{ salle.surfaceSalle }}" style="height:40px;"
+                                                           required="required"
+                                                           placeholder="Surface de la salle"/>
+                                                </div>
+                                                <div style="padding-top: 25px;margin-left:0px;padding-left:0px;">
+                                                    <label style="width:200px;text-align:left;">Capacite de la
+                                                        salle</label>
+                                                    <input pattern="[0-9]+" type="text" name="capacite" style="height:40px;"
+                                                           required="required"
+                                                           value="{{ salle.capaciteSalle }}"
+                                                           placeholder="Capacité de la salle"/>
+                                                </div>
+                                                <div style="margin-left:-600px;padding-left:0px;">
+
+                                                    <h4 style="text-align:left;padding-left:120px;">Changer La capture
+                                                        de
+                                                        votre
+                                                        salle...</h4>
+                                                    <input type="file"
+                                                           style="margin-left: 90px;background:none;border:none;line-height:20px;"
+                                                           name="image">
+                                                    <label style="float:left;font-size: 0.7em;margin-left:135px;margin-top:-10px;color: red">(les
+                                                        extensions
+                                                        autorisé{gif,png,bmp,jpeg,jpg})</label>
+                                                </div>
+                                                <button class="btn btn-primary nextBtn btn-lg pull-left"
+                                                        style="margin-top:-40px;margin-left:150px;padding-top:0px;margin-bottom:15px;"
+                                                        type="submit"
+                                                >
+                                                    Modifier
+                                                </button>
+                                                <button class="btn btn-primary nextBtn btn-lg pull-right"
+                                                        type="reset"
+                                                        style="margin-top:-40px;padding-top:0px;margin-right:150px;">
+                                                    Annuler
+                                                </button>
+
+                                            </form>
+
+                                        </div>
+                                        <div class="tab-pane fade" id="Price">
+
+                                            <div class="form-bottom" style="padding:0px;height:480px">
+                                                <div class="panel panel-default"
+                                                     style=background-color:#FFD0F2;width:520px;margin-top:0px;margin-left:10px;">
+                                                    <div class="panel-heading"
+                                                         style="background: #444;background: rgb(204, 42, 108);margin-bottom: 10px;">
+                                                        <h3 class="panel-title"
+                                                            style="font-weight: bold;">
+                                                            Liste des Prix
+                                                        </h3>
+                                                    </div>
+                                                    <div class="panel-body" style="height:180px;">
+                                                        <table class="table" style="margin-top:-5px;">
+                                                            <thead style="font-weight: bold;color: grey">
+                                                            <tr>
+                                                                <td>Période</td>
+                                                                <td>Prix</td>
+                                                            </tr>
+                                                            </thead>
+                                                            <tbody>
+                                                            {% for saison in saisons %}
+                                                                <tr>
+                                                                    <td>{{ saison.debut }} à {{ saison.fin }}</td>
+                                                                    <td>{{ saison.prix }}</td>
+                                                                </tr>
+                                                            {% endfor %}
+                                                            </tbody>
+                                                        </table>
+
+
+                                                    </div>
+                                                </div>
+                                                <div class="panel panel-default"
+                                                     style="background-color:#FFD0F2;width: 593px;margin-left:-608px;margin-top:115px;">
+                                                    <div class="panel-heading"
+                                                         style="background: #444;background: rgb(204, 42, 108);margin-bottom: 0px;height:50px;padding-top:0px;padding-bottom:0px;">
+                                                        <h3 class="panel-title"
+                                                            style="font-weight:bold;padding-top:0px;">
+                                                            Supprimer Une saison
+                                                        </h3>
+                                                    </div>
+                                                    <div class="panel-body " style="height: 70px;">
+                                                        <form method="post" action="{{ path('delete_saison') }}">
+                                                            <div class="service"
+                                                                 style="padding-left:0px;padding-top:0px;">
+                                                                <label for="indice" class="required"
+                                                                       style="width: 150px;margin-right:15px;">Indice de
+                                                                    saison</label><input type="texte" name="indice"
+                                                                                         required="required"
+                                                                                         style="width: 150px;margin-right:30px;">
+                                                                <input class="boutton " value="Supprimer"
+                                                                       style="margin-top:0px;float:right;margin-bottom:15px;line-height:0px;margin-right:30px;"
+                                                                       type="submit">
+                                                            </div>
+                                                        </form>
+                                                    </div>
+                                                </div>
+                                                <div class="panel panel-default"
+                                                     style="background-color:#FFD0F2;width: 520px;margin-top:-242px;margin-left:10px;">
+                                                    <div class="panel-heading"
+                                                         style="background: #444;background: rgb(204, 42, 108);margin-bottom: 0px;height:50px;padding-top:0px;padding-bottom:0px;">
+                                                        <h3 class="panel-title"
+                                                            style="font-weight:bold;padding-top:10px;">
+                                                            Ajout d'une nouvelle saison
+                                                        </h3>
+                                                    </div>
+                                                    <div class="panel-body " style="height: 160px;text-align: center;">
+
+                                                        <form method="post" action="/Mariage3/web/app_dev.php/saisons">
+                                                            <div class="service"
+                                                                 style="font-weight: bold;margin-top:-150px;float: left;padding-left: 0px;">
+                                                                <label for="debut" class="required"
+                                                                       style="width: 60px;">Debut</label> <input
+                                                                        type="date" name="debut" required="required"
+                                                                        style="width: 150px;margin-right:25px;">
+                                                            </div>
+                                                            <div class="service" style="margin-left:165px;">
+                                                                <label for="fin" class="required" style="width: 40px;">Fin</label>
+                                                                <input type="date" name="fin" required="required"
+                                                                       style="width: 150px;">
+                                                            </div>
+                                                            <div class="service"
+                                                                 style="font-weight: bold;float: left;padding-left: 0px;margin-top:-90px;">
+                                                                <label for="prix" class="required" style="width: 60px;">Prix</label><input
+                                                                        type="texte" name="prix" required="required"
+                                                                        style="width: 150px;">
+                                                            </div>
+                                                            <div class="service" style="">
+                                                                <input class="boutton " value="confirmer"
+                                                                       style="margin-top:-115px;margin-left:200px;margin-bottom:15px;line-height:0px;"
+                                                                       type="submit">
+                                                            </div>
+                                                        </form>
+
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                        </div>
+                                        <div class="tab-pane fade" id="service">
+
+                                            <div class="form-bottom" style="padding:0px;height:480px">
+                                                <div class="panel panel-default"
+                                                     style=background-color:#FFD0F2;width:520px;margin-top:0px;margin-left:10px;">
+                                                    <div class="panel-heading"
+                                                         style="background: #444;background: rgb(204, 42, 108);margin-bottom: 10px;">
+                                                        <h3 class="panel-title"
+                                                            style="font-weight: bold;">
+                                                            Ajout d'un nouveau Service
+                                                        </h3>
+                                                    </div>
+                                                    <div class="panel-body" style="height:250px;">
+                                                        {{ form_start(form) }}
+                                                        {% if app.session.flashBag.has('Ajout') %}
+                                                            <div class="alert alert-success"
+                                                                 style="margin: 0px;font-weight:bold;height: 30px;line-height: 3px;text-align: center">
+                                                                {% for msg in app.session.flashBag.get('Ajout') %}
+                                                                    {{ msg }}
+                                                                {% endfor %}
+                                                            </div>
+                                                        {% endif %}
+
+                                                        <div class="service p">
+                                                            {{ form_label(form.libelleService,null, {'label': "Votre Service"}) }}
+                                                            {{ form_widget(form.libelleService) }}
+                                                        </div>
+                                                        <div class="service">
+                                                            {{ form_label(form.categorie,null, {'label': 'Catégories'}) }}
+                                                            {{ form_widget(form.categorie) }}
+
+                                                        </div>
+                                                        <div class="service">
+                                                            {{ form_widget(form.Ajouter,{'attr': {'class': 'boutton pull-left'}}) }}
+                                                            {{ form_widget(form.Annuler,{'attr': {'class': 'boutton pull-right'}}) }}
+                                                        </div>
+                                                        {{ form_row(form._token) }}
+                                                        {{ form_end(form, {'render_rest': false}) }}
+                                                    </div>
+                                                </div>
+                                                <div class="panel panel-default"
+                                                     style="background-color:#FFD0F2;width: 593px;margin-left:-608px;margin-top:45px;">
+                                                    <div class="panel-heading"
+                                                         style="background: #444;background: rgb(204, 42, 108);margin-bottom: 0px;height:50px;padding-top:0px;padding-bottom:0px;">
+                                                        <h3 class="panel-title"
+                                                            style="font-weight:bold;padding-top:0px;">
+                                                            Supprimer un service
+                                                        </h3>
+                                                    </div>
+                                                    <div class="panel-body " style="height: 70px;">
+
+                                                        {{ form_start(form1) }}
+
+                                                        <div class="serviceR">
+                                                            {{ form_label(form1.libelleService,null, {'label': 'Nom du service'}) }}
+                                                            {{ form_widget(form1.libelleService,{'attr': {'required':true}}) }}
+
+                                                            {{ form_widget(form1.Supprimer,{'attr': {'class': 'boutton'}}) }}
+                                                        </div>
+                                                        {{ form_row(form1._token) }}
+                                                        {{ form_end(form1, {'render_rest': false}) }}
+
+                                                    </div>
+                                                </div>
+                                                <div class="panel panel-default"
+                                                     style="background-color:#FFD0F2;width: 520px;margin-top:-170px;margin-left:10px;">
+                                                    <div class="panel-heading"
+                                                         style="background: #444;background: rgb(204, 42, 108);margin-bottom: 0px;height:50px;padding-top:0px;padding-bottom:0px;">
+                                                        <h3 class="panel-title"
+                                                            style="font-weight:bold;padding-top:10px;">
+                                                            Modifier un service
+                                                        </h3>
+                                                    </div>
+                                                    <div class="panel-body " style="height: 94px;">
+
+                                                        {{ form_start(form2) }}
+
+                                                        <div class="serviceR" STYLE="margin-top: -20px;">
+                                                            {{ form_label(form2.libelleService,null, {'label': 'Service a modifier'}) }}
+                                                            {{ form_widget(form2.libelleService,{'attr': {'class': 'sizek'}}) }}
+
+
+                                                        </div>
+                                                        <div class="serviceR" id="serviceUpdate"
+                                                             style="position:absolute;line-height:0px;margin-left:0px;margin-top:0px;">
+                                                            {{ form_label(form2.LeService,null, {'label': 'Nouveau Service'}) }}
+                                                            {{ form_widget(form2.LeService,{'attr': {'class': 'size','required':true}}) }}
+                                                            {{ form_widget(form2.Supprimer,{'label': 'Modifier','attr': {'class': 'boutton f'}}) }}
+                                                        </div>
+                                                        {{ form_row(form2._token) }}
+                                                        {{ form_end(form2, {'render_rest': false}) }}
+
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                        </div>
+                                        <div class="tab-pane fade" id="Propositions">
+
+                                            <div class="form-bottom" style="padding:0px;height:480px">
+                                                <div class="panel panel-default"
+                                                     style=background-color:#FFD0F2;width:520px;margin-top:0px;margin-left:10px;height:280px;">
+                                                    <div class="panel-heading"
+                                                         style="background: #444;background: rgb(204, 42, 108);margin-bottom: 10px;">
+                                                        <h3 class="panel-title"
+                                                            style="font-weight: bold;">
+                                                            Ajout d'une nouvelle Proposition
+                                                        </h3>
+                                                    </div>
+                                                    <div class="panel-body">
+                                                        {{ form_start(form3,{'action':path('add_proposition')}) }}
+
+                                                        <div class="service p" STYLE="margin-top: 0px;">
+                                                            {{ form_label(form3.libelleService,null, {'label': 'Service'}) }}
+                                                            {{ form_widget(form3.libelleService,{'attr': {'class': 'sizek'}}) }}
+                                                        </div>
+                                                        <div class="service p"
+                                                             style="position:absolute;line-height:0px;margin-left:0px;margin-top:0px;">
+                                                            {{ form_label(form3.LeService,null, {'label': 'Nouvelle Proposition'}) }}
+                                                            {{ form_widget(form3.LeService,{'attr': {'class': 'size','required':true}}) }}
+                                                        </div>
+                                                        <div class="service p"
+                                                             style="position:absolute;line-height:0px;margin-left:0px;margin-top:50px;">
+                                                            {{ form_label(form3.Price,null, {'label': 'Prix'}) }}
+                                                            {{ form_widget(form3.Price,{'attr': {'class': 'size','required':true}}) }}
+                                                            <div style="margin-top:15px;margin-left: 100px;padding-bottom: 5px;">
+                                                                {{ form_widget(form3.Supprimer,{'label': 'Ajouter','attr': {'class': 'boutton'}}) }}
+                                                            </div>
+                                                        </div>
+                                                        {{ form_row(form3._token) }}
+                                                        {{ form_end(form3, {'render_rest': false}) }}
+                                                    </div>
+                                                </div>
+                                                <div class="panel panel-default"
+                                                     style="background-color:#FFD0F2;width: 593px;margin-left:-608px;margin-top:75px;">
+                                                    <div class="panel-heading"
+                                                         style="background: #444;background: rgb(204, 42, 108);margin-bottom: 0px;height:50px;padding-top:0px;padding-bottom:0px;">
+                                                        <h3 class="panel-title"
+                                                            style="font-weight:bold;padding-top:0px;">
+                                                            Supprimer une Proposition
+                                                        </h3>
+                                                    </div>
+                                                    <div class="panel-body " style="height: 70px;">
+                                                        {{ form_start(form5,{'action': path('remove_prop'), 'method': 'POST'}) }}
+                                                        <div class="service p x"
+                                                             style="position:absolute;line-height:0px;margin-left:0px;margin-top:0px;">
+                                                            {{ form_widget(form5.service,{'attr': {'class': 'sizek'}}) }}
+                                                            {{ form_widget(form5.libelleProposition,{'attr': {'class': 'size','required':true}}) }}
+                                                            {{ form_widget(form5.Supprimer,{'label': 'Supprimer','attr': {'class': 'sp'}}) }}
+                                                        </div>
+                                                    </div>
+                                                    {{ form_row(form5._token) }}
+                                                    {{ form_end(form5, {'render_rest': false}) }}
+
+                                                </div>
+                                                <div class="panel panel-default"
+                                                     style="background-color:#FFD0F2;width: 520px;margin-top:-210px;margin-left:10px;">
+                                                    <div class="panel-heading"
+                                                         style="background: #444;background: rgb(204, 42, 108);margin-bottom: 0px;height:50px;padding-top:0px;padding-bottom:0px;">
+                                                        <h3 class="panel-title"
+                                                            style="font-weight:bold;padding-top:10px;">
+                                                            Modifier une proposition
+                                                        </h3>
+                                                    </div>
+                                                    <div class="panel-body " style="height: 135px;">
+                                                        {{ form_start(form4) }}
+                                                        <div class="service p x" STYLE="margin-top: 0px;">
+                                                            {{ form_label(form4.service,null, {'label': 'Service'}) }}
+                                                            {{ form_widget(form4.service,{'attr': {'class': 'sizek'}}) }}
+                                                        </div>
+                                                        <div class="service p x"
+                                                             style="position:absolute;line-height:0px;margin-left:0px;margin-top:0px;">
+                                                            {{ form_label(form4.libelleProposition,null, {'label': 'Proposition'}) }}
+                                                            {{ form_widget(form4.libelleProposition,{'attr': {'class': 'size','required':true}}) }}
+                                                            <div class="service p x"
+                                                                 style="line-height:0px;margin-left:0px;margin-top:0px;">
+                                                                {{ form_label(form4.prixProposition,null, {'label': 'Prix'}) }}
+                                                                {{ form_widget(form4.prixProposition,{'attr': {'class': 'size','required':true}}) }}
+                                                                {{ form_widget(form4.Supprimer,{'label': 'Modifier','attr': {'class': 'boutton'}}) }}
+                                                            </div>
+                                                        </div>
+                                                        {{ form_row(form4._token) }}
+                                                        {{ form_end(form4, {'render_rest': false}) }}
+
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+
+
+                    </div>
+                </div>
+            </div>
+        </div>
+        </div>
+        </div>
+    </section>
+
+
+{% endblock %}

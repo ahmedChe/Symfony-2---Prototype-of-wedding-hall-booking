@@ -1,0 +1,41 @@
+{% extends 'BackOfficeAdminBundle:Template:layout.html.twig' %}
+{% block panelHead %}
+    Liste des Responsables
+{% endblock %}
+{% block panelContent %}
+    <table class="table">
+    <thead>
+   <tr style="font-weight: bold"><td>Carte d'identité</td><td>Nom du responsable(e)</td><td>Telephone</td><td style="padding-left: 35px;">Email</td><td>Nom du compte</td><td>Rendement</td><td></td></tr>
+        </thead>
+        <tbody>
+        {% for responsable in responsables %}
+        <tr><td style="padding-left: 35px;line-height: 35px;" >{{ responsable.cin }}</td>
+        <td style="padding-left: 40px;line-height: 35px;" >{{ responsable.nomprenom }}</td>
+        <td style="padding-left: 15px;line-height: 35px;">{{ responsable.tel }}</td>
+        <td style="line-height: 35px;">{{ responsable.email }}</td>
+        <td style="padding-left: 35px;line-height: 35px;">{{ responsable.login }}</td>
+            <td style="padding-left: 35px;line-height: 35px;">
+                {% if responsable.note is not sameas('0/0') %}
+                 {{ responsable.note }}
+
+                {% endif %}
+            </td>
+            <td style="padding-left: 15px;">
+            {% if responsable.bloquage ==0 %}
+
+            <form action="{{ path('back_office_admin_resoonsables_block') }}" method="post">
+                <input type="hidden" value="{{ responsable.cin }}" name="cin">
+                <button style="width: 180px;" type="submit" class="btn btn-danger">Bloquer</button>
+            </form>
+
+        {% else %}
+            <form action="{{ path('back_office_admin_resoonsables_deblock') }}" method="post">
+                <input type="hidden" value="{{ responsable.cin }}" name="cin">
+                <button style="width: 180px;" type="submit" class="btn btn-danger">Debloquer</button>
+            </form>
+            {% endif %}
+        </td></tr>
+        {% endfor %}
+        </tbody>
+    </table>
+{% endblock %}

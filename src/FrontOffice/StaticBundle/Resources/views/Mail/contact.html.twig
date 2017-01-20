@@ -1,0 +1,77 @@
+{% extends '::base.html.twig' %}
+{% block body %}
+    <style>
+        .btn-primary
+        {
+            background-color: #D7457A;
+        }
+
+    </style>
+    <section id="aboutUs">
+        <div class="container">
+            <div class="heading wow fadeInUp animated" data-wow-duration="1000ms" data-wow-delay="300ms">
+                <div class="row">
+                    <div class="text-center col-sm-8 col-sm-offset-2">
+                        <h2>Contact</h2>
+                        <h4>Postez vos commentaires, vos nécessités et vos plaintes...Votre confort nous intéresse</h4>
+                    </div>
+                </div>
+            </div>
+            <div class="row feature design">
+                <div class="col-md-4" style="padding-top: 100px;">
+                    <div class="col">
+                        <h3>Contactez Nous</h3>
+                        <ul>
+                            <li>Route Aeroport km 8, SFAX - TUNISIA</li>
+                            <li>Phone(+216): 97 524 287 | 53 524 286 </li>
+                            <li>Email: il-pazzo@hotmail.fr</li>
+                            <li>Skype: Sfaxien_Gangster</li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="col-md-8" style="padding-right: 70px;text-align: justify;text-justify: inter-word;">
+                    {{ form_start(form, {'action': path('front_office_Contact'), 'method': 'POST'}) }}
+
+                    <div class="form-group">
+                    {{ form_label(form.name,null, {'label': 'Nom'}) }}
+                    {{ form_widget(form.name, {'attr': {'class': 'form-control'}}) }}
+                    </div>
+
+                    <div class="form-group">
+                        {{ form_label(form.email,null, {'label': 'Email'}) }}
+                        {{ form_widget(form.email, {'attr': {'class': 'form-control'}}) }}
+                    </div>
+
+                    <div class="form-group">
+                        {{ form_label(form.subject,null, {'label': 'Sujet'}) }}
+                        {{ form_widget(form.subject, {'attr': {'class': 'form-control'}}) }}
+                    </div>
+
+                    <div class="form-group">
+                        {{ form_label(form.message,null, {'label': 'Message'}) }}
+                        {{ form_widget(form.message, {'attr': {'class': 'form-control'}}) }}
+                    </div>
+                    <div class="form-group">
+                    {{ form_widget(form.Send,{'attr': {'class': 'btn btn-lg btn-primary'}}) }}
+                    </div>
+
+                    {{ form_end(form, {'render_rest': false}) }}
+
+                    {%  if  name  is defined %}
+                        {{ name }}
+                        {% for label, flashes in app.session.flashbag.all() %}
+                            {% for flash in flashes %}
+                                <div class="alert alert-{{ label }}">
+                                    {{ flash }}
+                                </div>
+                            {% endfor %}
+                        {% endfor %}
+                    {% endif %}
+                </div>
+
+            </div>
+
+        </div>
+    </section>
+
+    {% endblock  %}

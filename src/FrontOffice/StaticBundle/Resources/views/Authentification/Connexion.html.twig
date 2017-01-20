@@ -1,0 +1,68 @@
+{% extends '::base.html.twig' %}
+
+{% block body %}
+    <link rel="stylesheet" href="{{ asset('bundles/frontofficestatic/css/font-awesome.min.css') }}">
+    <link rel="stylesheet" href="{{ asset('bundles/frontofficestatic/css/form-elements.css') }}">
+    <link rel="stylesheet" href="{{ asset('bundles/frontofficestatic/css/style.css') }}">
+    <link rel="shortcut icon" href="{{ asset('bundles/frontofficestatic/ico/favicon.png') }}">
+    <link rel="apple-touch-icon-precomposed" sizes="144x144" href="{{ asset('bundles/frontofficestatic/ico/apple-touch-icon-144-precomposed.png') }}">
+    <link rel="apple-touch-icon-precomposed" sizes="114x114" href="{{ asset('bundles/frontofficestatic/ico/apple-touch-icon-114-precomposed.png') }}">
+    <link rel="apple-touch-icon-precomposed" sizes="72x72" href="{{ asset('bundles/frontofficestatic/ico/apple-touch-icon-72-precomposed.png') }}">
+    <link rel="apple-touch-icon-precomposed" href="{{ asset('bundles/frontofficestatic/ico/apple-touch-icon-57-precomposed.png') }}">
+    <section id="Connexion">
+
+        <div class="container">
+            <div class="heading wow fadeInUp animated" data-wow-duration="1000ms" data-wow-delay="300ms">
+                <div class="row" style="margin-top: 30px;">
+                    <div class="text-center col-sm-8 col-sm-offset-2">
+                        <h2>Connexion</h2>
+                        <h4>Espace de Connexion pour les clients et les responsables de salle </h4>
+                    </div>
+                </div>
+            </div>
+            <div class="top-content">
+                <div class="inner-bg" >
+                    <div class="container">
+                        <div class="row" style="margin-top: -120px;" >
+                            <div class="col-sm-7 col-sm-offset-3" style="background-color: #F06397;padding: 0px;">
+                                <div class="form-top">
+                                    <div class="form-top-left">
+                                        <h3>Connecter à notre site</h3>
+                                        <p>Entrer votre nom d'utilisateur et votre mot de passe</p>
+                                    </div>
+                                    <div class="form-top-right">
+                                        <i class="fa fa-lock"></i>
+                                    </div>
+                                </div>
+                                <div class="form-bottom">
+                                    {% if app.session.flashBag.has('Echec') %}
+                                        <div class="alert alert-danger" style="margin: 0px;font-weight:bold;margin-bottom: 15px;text-align: center">
+                                            {% for msg in app.session.flashBag.get('Echec') %}
+                                                {{ msg }}
+                                            {% endfor %}
+                                        </div>
+                                    {% endif %}
+                                    <form role="form" action="{{ path('front_office_Donnee_connexion') }}" method="post" class="login-form">
+                                        <div class="form-group">
+                                            <label for="form-username">Nom d'utilisateur</label>
+                                            <input type="text" name="username" required="required" placeholder="Username..." pattern=".{8,}"   required title="Le nom d'utilisateur contient au minimum 8 caractéres" class="form-username form-control" id="form-username">
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="form-password">Mot de passe </label>
+                                            <input type="password" name="password" required="required" pattern=".{8,15}"   required title="Le mot de passe varie entre 8 et 15 caractéres" placeholder="Password..." class="form-password form-control" id="form-password">
+                                        </div>
+                                        <button type="submit" class="btn" style="background-color: #D7457A;margin-top: 10px;">Connecter</button>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+
+            </div>
+
+        </div>
+    </section>
+
+{% endblock  %}

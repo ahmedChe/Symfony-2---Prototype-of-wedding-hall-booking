@@ -1,0 +1,14 @@
+Salles_index:
+    path:     /Salles
+    defaults: { _controller: FrontOfficeClientBundle:Reservation:Salles}
+reservation:
+    path:     /Reservation
+    defaults: { _controller: FrontOfficeClientBundle:Reservation:Reservation}
+    methods:  ['POST']
+message:
+    path:     /Message
+    defaults: { _controller: FrontOfficeClientBundle:Reservation:Message}
+vu:
+    path:     /Vu
+    defaults: { _controller: FrontOfficeClientBundle:Reservation:Vu}
+    methods:  ['POST']

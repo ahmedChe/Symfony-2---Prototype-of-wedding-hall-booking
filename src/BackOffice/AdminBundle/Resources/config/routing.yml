@@ -1,0 +1,17 @@
+back_office_admin_homepage:
+    path:     /admin/
+    defaults: { _controller: BackOfficeAdminBundle:Default:index }
+back_office_admin_clients:
+    path:     /admin/clients/
+    defaults: { _controller: BackOfficeAdminBundle:Default:Clients }
+back_office_admin_resoonsables:
+    path:     /admin/responsables/
+    defaults: { _controller: BackOfficeAdminBundle:Default:Responsables }
+back_office_admin_resoonsables_block:
+    path:     /admin/responsables/bloc
+    defaults: { _controller: BackOfficeAdminBundle:Default:Block }
+    methods:  ['POST']
+back_office_admin_resoonsables_deblock:
+    path:     /admin/responsables/debloc
+    defaults: { _controller: BackOfficeAdminBundle:Default:Deblock }
+    methods:  ['POST']

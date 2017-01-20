@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<doctrine-mapping xmlns="http://doctrine-project.org/schemas/orm/doctrine-mapping" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://doctrine-project.org/schemas/orm/doctrine-mapping http://doctrine-project.org/schemas/orm/doctrine-mapping.xsd">
+  <entity name="Responsable" table="responsable" repository-class="FrontOffice\StaticBundle\Entity\ResponsableRepository">
+    <id name="cin" type="integer" column="CIN">
+      <generator strategy="IDENTITY"/>
+    </id>
+    <field name="nomprenom" type="string" column="NomPrenom" length="50" nullable="false"/>
+    <field name="tel" type="integer" column="Tel" nullable="false"/>
+    <field name="email" type="string" column="Email" length="50" nullable="false"/>
+    <field name="login" type="string" column="Login" length="20" nullable="false"/>
+    <field name="password" type="string" column="Password" length="15" nullable="false"/>
+    <field name="note" type="float" column="Note" precision="10" scale="0" nullable="false"/>
+  </entity>
+</doctrine-mapping>

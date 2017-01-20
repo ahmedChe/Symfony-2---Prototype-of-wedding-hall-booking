@@ -1,0 +1,39 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <h1>Service list</h1>
+
+    <table>
+        <thead>
+            <tr>
+                <th>Idservice</th>
+                <th>Libelleservice</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for service in services %}
+            <tr>
+                <td><a href="{{ path('service_show', { 'id': service.idService }) }}">{{ service.idService }}</a></td>
+                <td>{{ service.libelleService }}</td>
+                <td>
+                    <ul>
+                        <li>
+                            <a href="{{ path('service_show', { 'id': service.idService }) }}">show</a>
+                        </li>
+                        <li>
+                            <a href="{{ path('service_edit', { 'id': service.idService }) }}">edit</a>
+                        </li>
+                    </ul>
+                </td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <ul>
+        <li>
+            <a href="{{ path('service_new') }}">Create a new entry</a>
+        </li>
+    </ul>
+{% endblock %}

@@ -1,0 +1,43 @@
+front_office_static_homepage:
+    path:     /
+    defaults: { _controller: FrontOfficeStaticBundle:Default:index }
+front_office_static_about_us:
+    path:     /Apropos
+    defaults: { _controller: FrontOfficeStaticBundle:Default:About }
+front_office_static_Events:
+    path:     /Evenements
+    defaults: { _controller: FrontOfficeStaticBundle:Default:Events }
+front_office_Contact:
+    path:     /Contact
+    defaults: { _controller: FrontOfficeStaticBundle:Mail:Send }
+front_office_Connexion:
+    path:     /Connexion
+    defaults: { _controller: FrontOfficeStaticBundle:Authentification:Connexion }
+    methods:  ['GET']
+front_office_Registration:
+    path:     /Verification-Client
+    defaults: { _controller: FrontOfficeStaticBundle:Authentification:createClient}
+    methods:  ['POST']
+front_office_Register:
+    path:     /Inscription
+    defaults: { _controller: FrontOfficeStaticBundle:Authentification:new}
+    methods:  ['GET']
+front_office_Responsable_Registration:
+    path:     /Verification-Responsable
+    defaults: { _controller: FrontOfficeStaticBundle:Authentification:createResponsable}
+    methods:  ['POST']
+front_office_Donnee_connexion:
+    path:     /Connexion
+    defaults: { _controller: FrontOfficeStaticBundle:Authentification:GetDataToConnect}
+    methods:  ['POST']
+logout_user:
+    pattern:  /logoutUser
+    defaults: { _controller: FrontOfficeStaticBundle:Authentification:logout }
+profile:
+    pattern:  /profile
+    defaults: { _controller: FrontOfficeStaticBundle:Authentification:profile }
+    methods:  ['GET']
+edit_profile:
+    path:     /profile
+    defaults: { _controller: FrontOfficeStaticBundle:Authentification:modifierProfile}
+    methods:  ['POST']

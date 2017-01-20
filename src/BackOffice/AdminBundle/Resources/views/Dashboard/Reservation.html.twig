@@ -1,0 +1,26 @@
+{% extends 'BackOfficeAdminBundle:Template:layout.html.twig' %}
+{% block panelHead %}
+    Liste des reservations
+{% endblock %}
+{% block panelContent %}
+    <table class="table">
+    <thead>
+   <tr style="font-weight: bold"><td style="padding-left: 100px;">Data de reservation</td><td>Client(e)</td><td style="padding-left: 85px;">Salle</td><td style="padding-left: 100px;">Status de la reservation</td></tr>
+        </thead>
+        <tbody>
+        {% for reservation in reservations %}
+        <tr ><td style="padding-left: 130px;line-height: 30px;">{{ reservation.dateReservation }}</td>
+        <td style="line-height: 30px;">{{ reservation.client.nomprenom }}</td>
+        <td style="padding-left:70px;line-height: 30px;">{{ reservation.salle.nomSalle }}</td>
+        <td style="padding-left: 90px;line-height: 20px;">
+        {% if reservation.confirm ==1 or reservation.confirm==3 %}
+            <button style="width: 180px;" type="button" class="btn btn-danger">Rejeté</button>
+
+        {% else %}
+                <button style="width: 180px;" type="button" class="btn btn-success">Validé</button>
+            {% endif %}
+        </td></tr>
+        {% endfor %}
+        </tbody>
+    </table>
+{% endblock %}
